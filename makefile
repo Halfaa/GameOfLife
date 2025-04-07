@@ -6,7 +6,8 @@ EXEC=$(SRC)GameOfLife
 
 S_FILES =$(SRC)main.c \
 			$(SRC)grid.c \
-			$(SRC)game.c
+			$(SRC)game.c \
+			$(SRC)settings.c
 
 
 all: Build

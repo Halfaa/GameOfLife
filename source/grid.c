@@ -48,3 +48,27 @@ void print_neighbours(Cell grid[MAX_HEIGHT][MAX_WIDTH]){
         
     }
 }
+
+void fill_grid(Cell grid[MAX_HEIGHT][MAX_WIDTH]){
+
+}
+
+void generate_blank_grid(int height,int width,Cell grid[MAX_HEIGHT][MAX_WIDTH]){
+    for (int x = 0; x < MAX_HEIGHT; x++) {
+        for (int y = 0; y < MAX_WIDTH; y++) {
+            Cell cell = {x,y,0};
+            grid[x][y].x = cell.x;
+            grid[x][y].y = cell.y;
+            grid[x][y].state = cell.state;
+        }
+    }
+}
+
+void place_cell(Cell grid[MAX_HEIGHT][MAX_WIDTH], int x, int y){
+    if(grid[x][y].state == 1){
+        grid[x][y].state = 0;
+    }else{
+        grid[x][y].state = 1;
+    }
+
+}
