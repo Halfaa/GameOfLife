@@ -49,8 +49,18 @@ void print_neighbours(Cell grid[MAX_HEIGHT][MAX_WIDTH]){
     }
 }
 
-void fill_grid(Cell grid[MAX_HEIGHT][MAX_WIDTH]){
-
+void fill_grid(Cell grid[MAX_HEIGHT][MAX_WIDTH],int height,int widht,char *patern){
+    int index = 0;
+    
+    for (int x = 0; x < height; x++) {
+        for (int y = 0; y < widht; y++) {
+            Cell cell = {x,y,patern[index] - '0'};
+            index+=1;
+            grid[x][y].x = cell.x;
+            grid[x][y].y = cell.y;
+            grid[x][y].state = cell.state;
+        }
+    }
 }
 
 void generate_blank_grid(int height,int width,Cell grid[MAX_HEIGHT][MAX_WIDTH]){

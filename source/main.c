@@ -3,18 +3,21 @@
 #include <settings.h>
 #include <main.h>
 
-int main(){
-    //initGame();
-    getFileSettings();
 
+int main(){
+    
+    Cell grid[MAX_HEIGHT][MAX_WIDTH];
+    //initGame(grid);
+    getFileSettings(grid);
+    //print_grid(grid);
     return 0;
 }
 
 
-void initGame(){
+void initGame(Cell grid[MAX_HEIGHT][MAX_WIDTH]){
     int gen,compteur = 0;
-    Cell grid[MAX_HEIGHT][MAX_WIDTH];
-    generate_grid(MAX_HEIGHT,MAX_WIDTH,grid);
+    //generate_grid(MAX_HEIGHT,MAX_WIDTH,grid);
+    getFileSettings(grid);
     printf("Entrez le nombre de générations voulu : ");
     scanf("%d", &gen);
 

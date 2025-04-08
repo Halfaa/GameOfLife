@@ -1,3 +1,3 @@
 #include <unistd.h>
 
-void initGame();
+void initGame(Cell grid[MAX_HEIGHT][MAX_WIDTH]);
