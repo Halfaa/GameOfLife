@@ -5,7 +5,7 @@
 int getFileSettings(Cell grid[MAX_HEIGHT][MAX_WIDTH]){
     FILE *settings;
     int height,widht=0;
-    char *patern;
+    char *patern=NULL;
     settings= fopen("settings_grid.txt","rt");
     if(settings == NULL){
         printf("Problème avec l'ouverture du fichier");
@@ -13,16 +13,11 @@ int getFileSettings(Cell grid[MAX_HEIGHT][MAX_WIDTH]){
     }
     if(widht == 0 && height == 0){
         getWidhtHeight(&height,&widht,settings);
-        getPatern(settings,height,widht,&patern);
+        patern = getPatern(settings,height,widht,patern);
     }
     fclose(settings);
     
-    printf("%c",patern[0]);
-    for(int i =0;i<10;i++){
-        printf("%c",patern[i]);     
-    }
-
-    //fill_grid(grid,height,widht,patern);
+    fill_grid(grid,height,widht,patern);
 
     return 0;
 }
@@ -55,14 +50,14 @@ void getWidhtHeight(int *height,int *widht,FILE *settings){
     }
 }
 
-void getPatern(FILE *settings,int height,int widht,char *patern){
+char* getPatern(FILE *settings,int height,int widht,char *patern){
     char buffer[255];
-
-    *patern=malloc((widht * height + 1) * sizeof(char));
-
+    patern=malloc((widht * height) * sizeof(char));
 
     while(fgets(buffer,sizeof(buffer),settings) != NULL){
-            printf("%s",buffer);
+            //printf("%s",buffer);
             strncat(patern,buffer,widht);
         }
+    return patern;
+    
 }

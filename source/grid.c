@@ -82,3 +82,14 @@ void place_cell(Cell grid[MAX_HEIGHT][MAX_WIDTH], int x, int y){
     }
 
 }
+
+void copyGrid(Cell grid[MAX_HEIGHT][MAX_WIDTH],Cell copy[MAX_HEIGHT][MAX_WIDTH]){
+    for (int x = 0; x < MAX_HEIGHT; x++) {
+        for (int y = 0; y < MAX_WIDTH; y++) {
+            copy[x][y].x = grid[x][y].x;
+            copy[x][y].y = grid[x][y].y;
+            copy[x][y].state = grid[x][y].state;
+        }
+    }
+}
+

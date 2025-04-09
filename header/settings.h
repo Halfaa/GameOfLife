@@ -6,4 +6,4 @@
 
 int getFileSettings(Cell grid[MAX_HEIGHT][MAX_WIDTH]);
 void getWidhtHeight(int *height,int *widht,FILE *settings);
-void getPatern(FILE *settings,int height,int widht,char *patern);
+char* getPatern(FILE *settings,int height,int widht,char *patern);
