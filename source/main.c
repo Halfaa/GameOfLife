@@ -16,19 +16,13 @@ void initGame(Cell grid[MAX_HEIGHT][MAX_WIDTH]){
     int compteur = 0;
     int gen = askGenNumber();
     int speed = askSpeed();
-    if(askPartern() == 1){
-        generate_grid(MAX_HEIGHT,MAX_WIDTH,grid);
-        getFileSettings(grid);
+    int height,width = 0;
+    if(askPatern() == 1){
+        getFileSettings(grid,&height,&width);
+        paternMod(compteur,gen,height,width,speed,grid);
+        
     }else{
-        generate_grid(MAX_HEIGHT,MAX_WIDTH,grid);
+        generate_grid(DEFAULT_HEIGHT,DEFAULT_WIDTH,grid);
+        randomMod(compteur,gen,speed,grid);
     }
-    while(compteur<gen){
-        system("clear");
-        next_generation(grid);
-        printf("Next generation %d \n",compteur+1);
-        print_grid(grid);
-        usleep(speed);
-        compteur+=1;
-    }
-
 }

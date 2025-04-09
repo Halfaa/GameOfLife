@@ -2,8 +2,8 @@
 
 void generate_grid(int height,int width,Cell grid[MAX_HEIGHT][MAX_WIDTH]){
     srand(time(NULL));
-    for (int x = 0; x < MAX_HEIGHT; x++) {
-        for (int y = 0; y < MAX_WIDTH; y++) {
+    for (int x = 0; x < width; x++) {
+        for (int y = 0; y < height; y++) {
             Cell cell = {x,y,rand()%2};
             grid[x][y].x = cell.x;
             grid[x][y].y = cell.y;
@@ -12,9 +12,9 @@ void generate_grid(int height,int width,Cell grid[MAX_HEIGHT][MAX_WIDTH]){
     }
 }
 
-void print_grid(Cell grid[MAX_HEIGHT][MAX_WIDTH]){
-    for (int x = 0; x < MAX_HEIGHT; x++) {
-        for (int y = 0; y < MAX_WIDTH; y++) {
+void print_grid(Cell grid[MAX_HEIGHT][MAX_WIDTH],int height,int width){
+    for (int x = 0; x < height; x++) {
+        for (int y = 0; y < width; y++) {
             Cell cell = grid[x][y];
             printf("%d ", cell.state);
         }
@@ -64,8 +64,8 @@ void fill_grid(Cell grid[MAX_HEIGHT][MAX_WIDTH],int height,int widht,char *pater
 }
 
 void generate_blank_grid(int height,int width,Cell grid[MAX_HEIGHT][MAX_WIDTH]){
-    for (int x = 0; x < MAX_HEIGHT; x++) {
-        for (int y = 0; y < MAX_WIDTH; y++) {
+    for (int x = 0; x < height; x++) {
+        for (int y = 0; y < width; y++) {
             Cell cell = {x,y,0};
             grid[x][y].x = cell.x;
             grid[x][y].y = cell.y;
@@ -83,9 +83,9 @@ void place_cell(Cell grid[MAX_HEIGHT][MAX_WIDTH], int x, int y){
 
 }
 
-void copyGrid(Cell grid[MAX_HEIGHT][MAX_WIDTH],Cell copy[MAX_HEIGHT][MAX_WIDTH]){
-    for (int x = 0; x < MAX_HEIGHT; x++) {
-        for (int y = 0; y < MAX_WIDTH; y++) {
+void copyGrid(Cell grid[MAX_HEIGHT][MAX_WIDTH],Cell copy[MAX_HEIGHT][MAX_WIDTH], int height,int width){
+    for (int x = 0; x < height; x++) {
+        for (int y = 0; y < width; y++) {
             copy[x][y].x = grid[x][y].x;
             copy[x][y].y = grid[x][y].y;
             copy[x][y].state = grid[x][y].state;

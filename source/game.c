@@ -1,11 +1,12 @@
 #include <grid.h>
+#include <game.h>
 
-void next_generation(Cell grid[MAX_HEIGHT][MAX_WIDTH]){
+void next_generation(Cell grid[MAX_HEIGHT][MAX_WIDTH], int height,int width){
     Cell copy[MAX_HEIGHT][MAX_WIDTH];
-    copyGrid(grid,copy);
+    copyGrid(grid,copy,height,width);
 
-    for (int x = 0; x < MAX_HEIGHT; x++) {
-        for (int y = 0; y < MAX_WIDTH; y++) {
+    for (int x = 0; x < height; x++) {
+        for (int y = 0; y < width; y++) {
             Cell cell;
             cell.x = copy[x][y].x;
             cell.y = copy[x][y].y;
@@ -25,7 +26,29 @@ void next_generation(Cell grid[MAX_HEIGHT][MAX_WIDTH]){
     }  
 }
 
-int askPartern(){
+void paternMod(int compteur,int gen,int height,int width,int speed,Cell grid[MAX_HEIGHT][MAX_WIDTH]){
+    while(compteur<gen){
+        system("clear");
+        next_generation(grid,height,width);
+        printf("Next generation %d \n",compteur+1);
+        print_grid(grid,height,width);
+        usleep(speed);
+        compteur+=1;
+    }
+}
+
+void randomMod(int compteur,int gen,int speed,Cell grid[MAX_HEIGHT][MAX_WIDTH]){
+    while(compteur<gen){
+        system("clear");
+        next_generation(grid,DEFAULT_HEIGHT,DEFAULT_WIDTH);
+        printf("Next generation %d \n",compteur+1);
+        print_grid(grid,DEFAULT_HEIGHT,DEFAULT_WIDTH);
+        usleep(speed);
+        compteur+=1;
+    }
+}
+
+int askPatern(){
     int patern = 0;
     printf("Entrez 1 pour un patern prédéfinis / Entrez 2 pour un patern aléatoire : ");
     scanf("%d", &patern);

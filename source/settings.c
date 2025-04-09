@@ -2,22 +2,22 @@
 #include <grid.h>
 
 
-int getFileSettings(Cell grid[MAX_HEIGHT][MAX_WIDTH]){
+int getFileSettings(Cell grid[MAX_HEIGHT][MAX_WIDTH],int *height,int *width){
     FILE *settings;
-    int height,widht=0;
     char *patern=NULL;
     settings= fopen("settings_grid.txt","rt");
     if(settings == NULL){
         printf("Problème avec l'ouverture du fichier");
         return EXIT_FAILURE;
     }
-    if(widht == 0 && height == 0){
-        getWidhtHeight(&height,&widht,settings);
-        patern = getPatern(settings,height,widht,patern);
+
+    if(*width == 0 && *height == 0){
+        getWidhtHeight(height,width,settings);
+        patern = getPatern(settings,*height,*width,patern);
     }
     fclose(settings);
     
-    fill_grid(grid,height,widht,patern);
+    fill_grid(grid,*height,*width,patern);
 
     return 0;
 }
