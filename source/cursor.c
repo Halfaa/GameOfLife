@@ -39,6 +39,7 @@ void check_input(int height, int widht,Cell grid[MAX_HEIGHT][MAX_WIDTH]){
     char read_buffer[1] = {0};
     int x = 0;
     int y = 0;
+    bool stop=false;
 
     move_cursor(x,y);
 
@@ -46,33 +47,37 @@ void check_input(int height, int widht,Cell grid[MAX_HEIGHT][MAX_WIDTH]){
         fflush(0);
         read_buffer[0] = read_buffer[0];
         move_cursor(x,y);
-        if (read_buffer[0] == 'd'){
-            y++;
-            if(y>=height){y=0;}
-            move_cursor(x,y);
-            
+
+        switch(read_buffer[0]){
+            case 'z':
+                x--;
+                if(x<0){x=widht;}
+                move_cursor(x,y);
+                break;
+            case 'q':
+                y--;
+                if(y<0){y=height;}
+                move_cursor(x,y);
+                break;
+            case 's':
+                x++;
+                if(x>=widht){x=0;}
+                move_cursor(x,y);
+                break;
+            case 'd':
+                y++;
+                if(y>=height){y=0;}
+                move_cursor(x,y);
+                break;
+            case 'e':
+                place_cell(grid,x-1,y-1,height,widht);
+                move_cursor(x,y);
+                break;
+            case 'c':
+                stop = true;
+                break;
         }
-        if (read_buffer[0] == 'z'){
-            x--;
-            if(x<0){x=widht;}
-            move_cursor(x,y);
-        }
-        if (read_buffer[0] == 'q'){
-            y--;
-            if(y<0){y=height;}
-            move_cursor(x,y);
-            
-        }
-        if (read_buffer[0] == 's'){
-            x++;
-            if(x>=widht){x=0;}
-            move_cursor(x,y);
-        }
-        if(read_buffer[0] == 'e'){
-            place_cell(grid,x-1,y-1,height,widht);
-            move_cursor(x,y);
-        }
-        if(read_buffer[0]=='c'){
+        if(stop){
             break;
         }
     }
@@ -98,5 +103,3 @@ void enable_raw_mode(){
 
     tcsetattr(STDIN_FILENO, TCSANOW, &terminal);
 }
-
-

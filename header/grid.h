@@ -20,7 +20,7 @@ struct cell_s {
 typedef struct cell_s Cell;
 
 void generate_grid(int height,int width,Cell grid[MAX_HEIGHT][MAX_WIDTH]);
-void print_grid(Cell grid[MAX_HEIGHT][MAX_WIDTH],int height,int width);
+void print_grid(Cell grid[MAX_HEIGHT][MAX_WIDTH],int height,int width,int gen);
 int count_neighbors(Cell grid[MAX_HEIGHT][MAX_WIDTH],int x, int y);
 void print_neighbours(Cell grid[MAX_HEIGHT][MAX_WIDTH]);
 void place_cell(Cell grid[MAX_HEIGHT][MAX_WIDTH], int x, int y,int height,int width);

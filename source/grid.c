@@ -1,5 +1,6 @@
 #include <grid.h>
 #include <cursor.h>
+#include <game.h>
 
 void generate_grid(int height,int width,Cell grid[MAX_HEIGHT][MAX_WIDTH]){
     srand(time(NULL));
@@ -13,8 +14,9 @@ void generate_grid(int height,int width,Cell grid[MAX_HEIGHT][MAX_WIDTH]){
     }
 }
 
-void print_grid(Cell grid[MAX_HEIGHT][MAX_WIDTH],int height,int width){
+void print_grid(Cell grid[MAX_HEIGHT][MAX_WIDTH],int height,int width,int gen){
     system("clear");
+    //printf("\e[2j");
     for (int x = 0; x < height; x++) {
         for (int y = 0; y < width; y++) {
             Cell cell = grid[x][y];
@@ -26,6 +28,7 @@ void print_grid(Cell grid[MAX_HEIGHT][MAX_WIDTH],int height,int width){
         }
         printf("\n");
     }
+    printf("Génération %d\n",gen);
 }
 
 int count_neighbors(Cell grid[MAX_HEIGHT][MAX_WIDTH],int x, int y){
@@ -88,7 +91,7 @@ void place_cell(Cell grid[MAX_HEIGHT][MAX_WIDTH], int x, int y,int height,int wi
     }else{
         grid[x][y].state = 1;
     }
-    print_grid(grid,height,width);
+    print_grid(grid,height,width,DEFAULT_GEN);
     
 
 }

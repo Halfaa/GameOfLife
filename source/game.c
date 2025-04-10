@@ -32,7 +32,7 @@ void paternMod(int compteur,int gen,int height,int width,int speed,Cell grid[MAX
         printf ("\033[2J");
         next_generation(grid,height,width);
         printf("Next generation %d \n",compteur+1);
-        print_grid(grid,height,width);
+        print_grid(grid,height,width,gen);
         usleep(speed);
         compteur+=1;
     }
@@ -42,29 +42,29 @@ void randomMod(int compteur,int gen,int speed,Cell grid[MAX_HEIGHT][MAX_WIDTH]){
     while(compteur<gen){
         next_generation(grid,DEFAULT_HEIGHT,DEFAULT_WIDTH);
         printf("Next generation %d \n",compteur+1);
-        print_grid(grid,DEFAULT_HEIGHT,DEFAULT_WIDTH);
+        print_grid(grid,DEFAULT_HEIGHT,DEFAULT_WIDTH,gen);
         usleep(speed);
         compteur+=1;
     }
 }
 
-void customMod(Cell grid[MAX_HEIGHT][MAX_WIDTH]){
+void customMod(Cell grid[MAX_HEIGHT][MAX_WIDTH],int gen,int speed){
     int ret = init_term();
     generate_blank_grid(DEFAULT_HEIGHT,DEFAULT_WIDTH,grid);
     enable_raw_mode();
     if(ret == 0){
-        print_grid(grid,DEFAULT_HEIGHT,DEFAULT_WIDTH);
+        print_grid(grid,DEFAULT_HEIGHT,DEFAULT_WIDTH,DEFAULT_GEN);
         check_input(DEFAULT_HEIGHT,DEFAULT_WIDTH,grid);
         move_cursor(DEFAULT_WIDTH+1,0);
     }
 
     disable_raw_mode();
-    customPatern(grid);
+    customPatern(grid,gen,speed);
 }
 
 int askPatern(){
     int patern = 0;
-    printf("Entrez 1 pour un patern prédéfinis / Entrez 2 pour un patern aléatoire : ");
+    printf("Entrez 1 pour un patern prédéfinis / Entrez 2 pour un patern aléatoire / Entrez 3 pour avoir accès au mod Custom : ");
     scanf("%d", &patern);
     return patern;
 }
@@ -86,14 +86,11 @@ int askGenNumber(){
 
 }
 
-void customPatern(Cell grid[MAX_HEIGHT][MAX_WIDTH]){
+void customPatern(Cell grid[MAX_HEIGHT][MAX_WIDTH],int gen,int speed){
     int compteur = 0;
-    int gen = askGenNumber();
-    int speed = askSpeed();
     while(compteur < gen){
         next_generation(grid,DEFAULT_HEIGHT,DEFAULT_WIDTH);
-        printf("Next generation %d \n",compteur+1);
-        print_grid(grid,DEFAULT_HEIGHT,DEFAULT_WIDTH);
+        print_grid(grid,DEFAULT_HEIGHT,DEFAULT_WIDTH,compteur+1);
         usleep(speed);
         compteur+=1;
     }
