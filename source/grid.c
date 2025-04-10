@@ -14,7 +14,7 @@ void generate_grid(int height,int width,Cell grid[MAX_HEIGHT][MAX_WIDTH]){
 }
 
 void print_grid(Cell grid[MAX_HEIGHT][MAX_WIDTH],int height,int width){
-    printf ("\033[2J");
+    system("clear");
     for (int x = 0; x < height; x++) {
         for (int y = 0; y < width; y++) {
             Cell cell = grid[x][y];
@@ -81,12 +81,13 @@ void generate_blank_grid(int height,int width,Cell grid[MAX_HEIGHT][MAX_WIDTH]){
 }
 
 void place_cell(Cell grid[MAX_HEIGHT][MAX_WIDTH], int x, int y,int height,int width){
+    if(x<0){x=0;}
+    if(y<0){y=0;}
     if(grid[x][y].state == 1){
         grid[x][y].state = 0;
     }else{
         grid[x][y].state = 1;
     }
-    move_cursor(x,y);
     print_grid(grid,height,width);
     
 

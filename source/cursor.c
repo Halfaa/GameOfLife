@@ -36,48 +36,51 @@ int init_term()
 }
 
 void check_input(int height, int widht,Cell grid[MAX_HEIGHT][MAX_WIDTH]){
-    char read_buffer[64] = {0};
+    char read_buffer[1] = {0};
     int x = 0;
     int y = 0;
 
     move_cursor(x,y);
 
     while(read(0, read_buffer, 1) != 0){
+        fflush(0);
         read_buffer[0] = read_buffer[0];
         move_cursor(x,y);
         if (read_buffer[0] == 'd'){
-            x++;
-            if(x>height){x=0;}
+            y++;
+            if(y>=height){y=0;}
             move_cursor(x,y);
             
         }
         if (read_buffer[0] == 'z'){
-            y++;
-            if(y>widht){y=0;}
+            x--;
+            if(x<0){x=widht;}
             move_cursor(x,y);
         }
         if (read_buffer[0] == 'q'){
-            x--;
-            if(x<0){x=20;}
+            y--;
+            if(y<0){y=height;}
             move_cursor(x,y);
             
         }
         if (read_buffer[0] == 's'){
-            y--;
-            if(y<0){y=20;}
+            x++;
+            if(x>=widht){x=0;}
             move_cursor(x,y);
         }
         if(read_buffer[0] == 'e'){
-            place_cell(grid,y,x,height,widht);
+            place_cell(grid,x-1,y-1,height,widht);
+            move_cursor(x,y);
+        }
+        if(read_buffer[0]=='c'){
+            break;
         }
     }
 }
 
 void move_cursor(int x,int y){
+    printf ("\033[%d;%dH",x,y);
     fflush(0);
-    printf("%d:%d",x,y);
-    printf ("\033[%d;%dH",y,x);
-    //printf (" \033[2J");
 }
 
 void disable_raw_mode(){

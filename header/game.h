@@ -8,6 +8,7 @@ void next_generation(Cell grid[MAX_HEIGHT][MAX_WIDTH], int height,int width);
 void randomMod(int compteur,int gen,int speed,Cell grid[MAX_HEIGHT][MAX_WIDTH]);
 void paternMod(int compteur,int gen,int height,int width,int speed,Cell grid[MAX_HEIGHT][MAX_WIDTH]);
 void customMod(Cell grid[MAX_HEIGHT][MAX_WIDTH]);
+void customPatern(Cell grid[MAX_HEIGHT][MAX_WIDTH]);
 int askGenNumber();
 int askSpeed();
 int askPatern();

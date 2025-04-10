@@ -4,11 +4,6 @@
 #include <main.h>
 
 
-
-void test_couleur(){
-    char test[] = "TEST";
-    printf("%c\e[32m",test[0]);
-}
 int main(){
     
     Cell grid[MAX_HEIGHT][MAX_WIDTH];

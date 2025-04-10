@@ -53,12 +53,13 @@ void customMod(Cell grid[MAX_HEIGHT][MAX_WIDTH]){
     generate_blank_grid(DEFAULT_HEIGHT,DEFAULT_WIDTH,grid);
     enable_raw_mode();
     if(ret == 0){
-        //print_grid(grid,DEFAULT_HEIGHT,DEFAULT_WIDTH);
-        printf ("\033[2J");
+        print_grid(grid,DEFAULT_HEIGHT,DEFAULT_WIDTH);
         check_input(DEFAULT_HEIGHT,DEFAULT_WIDTH,grid);
+        move_cursor(DEFAULT_WIDTH+1,0);
     }
 
     disable_raw_mode();
+    customPatern(grid);
 }
 
 int askPatern(){
@@ -71,6 +72,7 @@ int askPatern(){
 int askSpeed(){
     int speed=0;
     printf("Entrez la vitesse d'évolution voulu (en seconde) : ");
+    fflush(0);
     scanf("%d", &speed);
     return speed*100000;
 }
@@ -78,8 +80,22 @@ int askSpeed(){
 int askGenNumber(){
     int gen = 0;
     printf("Entrez le nombre de générations voulu : ");
+    fflush(0);
     scanf("%d", &gen);
     return gen;
 
+}
+
+void customPatern(Cell grid[MAX_HEIGHT][MAX_WIDTH]){
+    int compteur = 0;
+    int gen = askGenNumber();
+    int speed = askSpeed();
+    while(compteur < gen){
+        next_generation(grid,DEFAULT_HEIGHT,DEFAULT_WIDTH);
+        printf("Next generation %d \n",compteur+1);
+        print_grid(grid,DEFAULT_HEIGHT,DEFAULT_WIDTH);
+        usleep(speed);
+        compteur+=1;
+    }
 }
 
