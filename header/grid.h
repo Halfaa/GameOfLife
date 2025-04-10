@@ -23,7 +23,7 @@ void generate_grid(int height,int width,Cell grid[MAX_HEIGHT][MAX_WIDTH]);
 void print_grid(Cell grid[MAX_HEIGHT][MAX_WIDTH],int height,int width);
 int count_neighbors(Cell grid[MAX_HEIGHT][MAX_WIDTH],int x, int y);
 void print_neighbours(Cell grid[MAX_HEIGHT][MAX_WIDTH]);
-void place_cell(Cell grid[MAX_HEIGHT][MAX_WIDTH], int x, int y);
+void place_cell(Cell grid[MAX_HEIGHT][MAX_WIDTH], int x, int y,int height,int width);
 void generate_blank_grid(int height,int width,Cell grid[MAX_HEIGHT][MAX_WIDTH]);
 void fill_grid(Cell grid[MAX_HEIGHT][MAX_WIDTH],int height,int widht,char *patern);
 void copyGrid(Cell grid[MAX_HEIGHT][MAX_WIDTH],Cell copy[MAX_HEIGHT][MAX_WIDTH],int height,int width);

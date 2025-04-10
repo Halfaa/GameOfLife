@@ -1,5 +1,6 @@
 #include <grid.h>
 #include <game.h>
+#include <cursor.h>
 
 void next_generation(Cell grid[MAX_HEIGHT][MAX_WIDTH], int height,int width){
     Cell copy[MAX_HEIGHT][MAX_WIDTH];
@@ -28,7 +29,7 @@ void next_generation(Cell grid[MAX_HEIGHT][MAX_WIDTH], int height,int width){
 
 void paternMod(int compteur,int gen,int height,int width,int speed,Cell grid[MAX_HEIGHT][MAX_WIDTH]){
     while(compteur<gen){
-        system("clear");
+        printf ("\033[2J");
         next_generation(grid,height,width);
         printf("Next generation %d \n",compteur+1);
         print_grid(grid,height,width);
@@ -39,13 +40,25 @@ void paternMod(int compteur,int gen,int height,int width,int speed,Cell grid[MAX
 
 void randomMod(int compteur,int gen,int speed,Cell grid[MAX_HEIGHT][MAX_WIDTH]){
     while(compteur<gen){
-        system("clear");
         next_generation(grid,DEFAULT_HEIGHT,DEFAULT_WIDTH);
         printf("Next generation %d \n",compteur+1);
         print_grid(grid,DEFAULT_HEIGHT,DEFAULT_WIDTH);
         usleep(speed);
         compteur+=1;
     }
+}
+
+void customMod(Cell grid[MAX_HEIGHT][MAX_WIDTH]){
+    int ret = init_term();
+    generate_blank_grid(DEFAULT_HEIGHT,DEFAULT_WIDTH,grid);
+    enable_raw_mode();
+    if(ret == 0){
+        //print_grid(grid,DEFAULT_HEIGHT,DEFAULT_WIDTH);
+        printf ("\033[2J");
+        check_input(DEFAULT_HEIGHT,DEFAULT_WIDTH,grid);
+    }
+
+    disable_raw_mode();
 }
 
 int askPatern(){

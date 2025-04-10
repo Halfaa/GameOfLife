@@ -1,4 +1,5 @@
 #include <grid.h>
+#include <cursor.h>
 
 void generate_grid(int height,int width,Cell grid[MAX_HEIGHT][MAX_WIDTH]){
     srand(time(NULL));
@@ -13,10 +14,15 @@ void generate_grid(int height,int width,Cell grid[MAX_HEIGHT][MAX_WIDTH]){
 }
 
 void print_grid(Cell grid[MAX_HEIGHT][MAX_WIDTH],int height,int width){
+    printf ("\033[2J");
     for (int x = 0; x < height; x++) {
         for (int y = 0; y < width; y++) {
             Cell cell = grid[x][y];
-            printf("%d ", cell.state);
+            if(cell.state == 0){
+                printf("\e[30m%d", cell.state);
+            }else if(cell.state == 1){
+                printf("\e[32m%d",cell.state);
+            }
         }
         printf("\n");
     }
@@ -74,12 +80,15 @@ void generate_blank_grid(int height,int width,Cell grid[MAX_HEIGHT][MAX_WIDTH]){
     }
 }
 
-void place_cell(Cell grid[MAX_HEIGHT][MAX_WIDTH], int x, int y){
+void place_cell(Cell grid[MAX_HEIGHT][MAX_WIDTH], int x, int y,int height,int width){
     if(grid[x][y].state == 1){
         grid[x][y].state = 0;
     }else{
         grid[x][y].state = 1;
     }
+    move_cursor(x,y);
+    print_grid(grid,height,width);
+    
 
 }
 
@@ -92,4 +101,3 @@ void copyGrid(Cell grid[MAX_HEIGHT][MAX_WIDTH],Cell copy[MAX_HEIGHT][MAX_WIDTH],
         }
     }
 }
-
