@@ -13,3 +13,6 @@ void check_input(int height,int width,Cell grid[MAX_HEIGHT][MAX_WIDTH]);
 void move_cursor(int x,int y);
 void disable_raw_mode();
 void enable_raw_mode();
+void disable_block_mode();
+void enable_block_mode();
+void enable_input_mode();

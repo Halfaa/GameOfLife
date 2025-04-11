@@ -28,24 +28,47 @@ void next_generation(Cell grid[MAX_HEIGHT][MAX_WIDTH], int height,int width){
 }
 
 void paternMod(int compteur,int gen,int height,int width,int speed,Cell grid[MAX_HEIGHT][MAX_WIDTH]){
-    while(compteur<gen){
-        printf ("\033[2J");
-        next_generation(grid,height,width);
-        printf("Next generation %d \n",compteur+1);
-        print_grid(grid,height,width,gen);
+    char read_buffer;
+    bool pause = false;
+    while(compteur < gen){
+        enable_raw_mode();
+        disable_block_mode();
+        if((read(STDIN_FILENO, &read_buffer, 1)) > 0){
+            if(read_buffer == 'p'){
+                pause = !pause;
+            }
+        }
+        if(!pause){
+                if(next_step(&compteur,gen,grid)==0){
+                    break;
+                };
+                
+            }
         usleep(speed);
-        compteur+=1;
     }
+    disable_raw_mode();
 }
 
 void randomMod(int compteur,int gen,int speed,Cell grid[MAX_HEIGHT][MAX_WIDTH]){
-    while(compteur<gen){
-        next_generation(grid,DEFAULT_HEIGHT,DEFAULT_WIDTH);
-        printf("Next generation %d \n",compteur+1);
-        print_grid(grid,DEFAULT_HEIGHT,DEFAULT_WIDTH,gen);
+    char read_buffer;
+    bool pause = false;
+    while(compteur < gen){
+        enable_raw_mode();
+        disable_block_mode();
+        if((read(STDIN_FILENO, &read_buffer, 1)) > 0){
+            if(read_buffer == 'p'){
+                pause = !pause;
+            }
+        }
+        if(!pause){
+                if(next_step(&compteur,gen,grid)==0){
+                    break;
+                };
+                
+            }
         usleep(speed);
-        compteur+=1;
     }
+    disable_raw_mode();
 }
 
 void customMod(Cell grid[MAX_HEIGHT][MAX_WIDTH],int gen,int speed){
@@ -64,35 +87,68 @@ void customMod(Cell grid[MAX_HEIGHT][MAX_WIDTH],int gen,int speed){
 
 int askPatern(){
     int patern = 0;
+    char buffer[4];
     printf("Entrez 1 pour un patern prédéfinis / Entrez 2 pour un patern aléatoire / Entrez 3 pour avoir accès au mod Custom : ");
-    scanf("%d", &patern);
+    fflush(0);
+    read(STDIN_FILENO,&buffer,sizeof(buffer));
+    patern = atoi(buffer);
     return patern;
 }
 
 int askSpeed(){
     int speed=0;
+    char buffer[4];
     printf("Entrez la vitesse d'évolution voulu (en seconde) : ");
     fflush(0);
-    scanf("%d", &speed);
+    read(STDIN_FILENO,&buffer,sizeof(buffer));
+    speed = atoi(buffer);
     return speed*100000;
 }
 
 int askGenNumber(){
     int gen = 0;
+    char buffer[4];
     printf("Entrez le nombre de générations voulu : ");
     fflush(0);
-    scanf("%d", &gen);
+    read(STDIN_FILENO,&buffer,sizeof(buffer));
+    gen = atoi(buffer);
     return gen;
-
 }
 
 void customPatern(Cell grid[MAX_HEIGHT][MAX_WIDTH],int gen,int speed){
     int compteur = 0;
+    char read_buffer;
+    bool pause = false;
     while(compteur < gen){
-        next_generation(grid,DEFAULT_HEIGHT,DEFAULT_WIDTH);
-        print_grid(grid,DEFAULT_HEIGHT,DEFAULT_WIDTH,compteur+1);
+        enable_raw_mode();
+        disable_block_mode();
+        if((read(STDIN_FILENO, &read_buffer, 1)) > 0){
+            if(read_buffer == 'p'){
+                pause = !pause;
+            }
+        }
+        if(!pause){
+                if(next_step(&compteur,gen,grid)==0){
+                    break;
+                };
+                
+            }
+        if(pause && read_buffer=='n'){
+                read_buffer='\0';
+                if(next_step(&compteur,gen,grid)==0){
+                    break;
+                };
+        }
         usleep(speed);
-        compteur+=1;
     }
+    disable_raw_mode();
 }
 
+
+int next_step(int *compteur, int gen,Cell grid[MAX_HEIGHT][MAX_WIDTH]){
+    next_generation(grid,DEFAULT_HEIGHT,DEFAULT_WIDTH);
+    print_grid(grid,DEFAULT_HEIGHT,DEFAULT_WIDTH,*compteur+1);
+    *compteur+=1;
+    if(*compteur>=gen){return 0;};
+    return 1;
+}

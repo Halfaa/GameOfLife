@@ -55,7 +55,6 @@ char* getPatern(FILE *settings,int height,int widht,char *patern){
     patern=malloc((widht * height) * sizeof(char));
 
     while(fgets(buffer,sizeof(buffer),settings) != NULL){
-            //printf("%s",buffer);
             strncat(patern,buffer,widht);
         }
     return patern;

@@ -1,6 +1,7 @@
 #include <main.h>
 #include <cursor.h>
 #include <grid.h>
+#include <game.h>
 
 struct termios original;
 struct termios terminal;
@@ -90,6 +91,9 @@ void move_cursor(int x,int y){
 
 void disable_raw_mode(){
     terminal.c_lflag |= ECHO;
+    terminal.c_lflag |= ICANON;
+    terminal.c_cc[VMIN] = 1;
+    terminal.c_cc[VTIME] = 0;
     tcsetattr(STDIN_FILENO, TCSANOW, &terminal);
 }
 void enable_raw_mode(){
@@ -101,5 +105,30 @@ void enable_raw_mode(){
     terminal.c_cc[VMIN] = 1;
     terminal.c_cc[VTIME] = 0;
 
+    tcsetattr(STDIN_FILENO, TCSANOW, &terminal);
+}
+
+void disable_block_mode(){
+    tcgetattr(STDIN_FILENO, &terminal);
+    terminal.c_cc[VMIN] = 0;
+
+    tcsetattr(STDIN_FILENO, TCSANOW, &terminal);
+}
+
+void enable_block_mode(){
+    tcgetattr(STDIN_FILENO, &terminal);
+    terminal.c_cc[VMIN] = 1;
+
+    tcsetattr(STDIN_FILENO, TCSANOW, &terminal);
+
+}
+
+void enable_input_mode(){
+    terminal.c_cc[VTIME] = 1;
+    tcsetattr(STDIN_FILENO, TCSANOW, &terminal);
+}
+
+void diable_input_mode(){
+    terminal.c_cc[VTIME] = 0;
     tcsetattr(STDIN_FILENO, TCSANOW, &terminal);
 }

@@ -28,7 +28,7 @@ void print_grid(Cell grid[MAX_HEIGHT][MAX_WIDTH],int height,int width,int gen){
         }
         printf("\n");
     }
-    printf("Génération %d\n",gen);
+    printf("\e[30mGénération %d\n",gen);
 }
 
 int count_neighbors(Cell grid[MAX_HEIGHT][MAX_WIDTH],int x, int y){

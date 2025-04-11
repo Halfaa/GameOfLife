@@ -1,5 +1,6 @@
 #include <grid.h>
 #include <unistd.h>
+#include <stdbool.h>
 
 #define DEFAULT_HEIGHT 20
 #define DEFAULT_WIDTH 20
@@ -13,3 +14,4 @@ void customPatern(Cell grid[MAX_HEIGHT][MAX_WIDTH],int gen,int speed);
 int askGenNumber();
 int askSpeed();
 int askPatern();
+int next_step(int *compteur, int gen,Cell grid[MAX_HEIGHT][MAX_WIDTH]);
